@@ -1,0 +1,23 @@
+[
+    {
+      "id": 1,
+      "title": "Saladpuk.com",
+      "url": "https://www.saladpuk.com",
+      "imageCover": "https://images.unsplash.com/photo-1727331000865-b5085a18463b?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "folderId": 1
+    },
+    {
+      "id": 2,
+      "title": "YouTube",
+      "url": "https://www.youtube.com",
+      "imageCover": null,
+      "folderId": 2
+    },
+    {
+      "id": 3,
+      "title": "GitHub",
+      "url": "https://github.com",
+      "imageCover": null,
+      "folderId": 3
+    }
+  ]

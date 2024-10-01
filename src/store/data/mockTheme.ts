@@ -1,0 +1,14 @@
+export const Theme = {
+  colors: {
+    primary: "#FF8A65",
+    secondary: "#4CAF50",
+    modal_bg: "#111827",
+    background_modal_bg: "#00000050",
+    card_bg: "#ffffff20",
+    sidebar_bg: "#1f2937",
+    background: "#2A2B2C",
+    button: "#2196F3",
+    text_link: "#171717",
+    text: "#ffffff",
+  },
+};

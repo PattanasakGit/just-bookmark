@@ -1,0 +1,30 @@
+[
+    {
+      "id": 1,
+      "name": "Homepage",
+      "icon": "Home",
+      "color": "#FF8A65",
+      "parentId": null
+    },
+    {
+      "id": 2,
+      "name": "Work",
+      "icon": "Briefcase",
+      "color": "#4CAF50",
+      "parentId": null
+    },
+    {
+      "id": 3,
+      "name": "Development",
+      "icon": "Code",
+      "color": "#2196F3",
+      "parentId": 2
+    },
+    {
+      "id": 4,
+      "name": "Personal",
+      "icon": "User",
+      "color": "#9C27B0",
+      "parentId": null
+    }
+  ]
