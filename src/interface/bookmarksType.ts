@@ -4,4 +4,5 @@ export interface BookmarkType {
   url: string;
   imageCover: string | null;
   folderId: number | null;
+  tags?: string[];
 }

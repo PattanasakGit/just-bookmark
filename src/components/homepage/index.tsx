@@ -1,6 +1,10 @@
-import React, { useState } from 'react';
+"use client";
+import React, { useState } from "react";
 import * as Icons from "iconsax-react";
-import { ArrowRight2, ArrowDown2, SearchNormal1, GridView, RowVertical, Setting4 } from "iconsax-react";
+import {
+  ArrowRight2,
+  ArrowDown2,
+} from "iconsax-react";
 import initialBookmarks from "@/store/data/bomarks.json";
 import initialFolders from "@/store/data/folders.json";
 import Sidebar from "../sidebar";
@@ -9,8 +13,7 @@ import Modal from "../modal";
 import BookmarkForm from "../bookmarkForm";
 import FolderForm from "../folderForm";
 import { Theme } from "@/store/data/mockTheme";
-import CustomSlider from '../slider';
-
+import CustomSlider from "../slider";
 
 interface Bookmark {
   id: number;
@@ -46,21 +49,22 @@ const BookmarkApp = () => {
     parentId: null,
   });
   const [selectedFolderId, setSelectedFolderId] = useState<number | null>(null);
-  const [expandedFolders, setExpandedFolders] = useState<Set<number>>(new Set());
-  const [searchQuery, setSearchQuery] = useState("");
-  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
-  const [cardSize, setCardSize] = useState(200);
+  const [expandedFolders, setExpandedFolders] = useState<Set<number>>(
+    new Set()
+  );
+  const [parentIdForNewSubfolder, setParentIdForNewSubfolder] = useState<
+    number | null | undefined
+  >(null);
 
   const filteredBookmarks = selectedFolderId
     ? bookmarks.filter((b) => b.folderId === selectedFolderId)
     : bookmarks;
 
-  const searchedBookmarks = filteredBookmarks.filter((bookmark) =>
-    bookmark.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
   const handleAddBookmark = () => setIsBookmarkModalOpen(true);
-  const handleAddFolder = () => setIsFolderModalOpen(true);
+  const handleAddFolder = (parentId?: number | null) => {
+    setIsFolderModalOpen(true);
+    setParentIdForNewSubfolder(parentId);
+  };
 
   const handleCloseModal = () => {
     setIsBookmarkModalOpen(false);
@@ -168,6 +172,12 @@ const BookmarkApp = () => {
                 <IconComponent size="20" color={folder.color} variant="Bulk" />
                 <span className="ml-2">{folder.name}</span>
               </div>
+              <button
+                onClick={() => handleAddFolder(folder.id)} // Pass the current folder's id as parentId
+                className="ml-2 text-gray-600 hover:text-gray-200"
+              >
+                +
+              </button>
             </div>
             {isExpanded && renderFolders(folder.id, depth + 1)}
           </div>
@@ -190,52 +200,21 @@ const BookmarkApp = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen text-white" style={{ backgroundColor: Theme.colors.background }}>
-      <header className="bg-gray-800 p-4 flex justify-between items-center">
-        <h1 className="text-2xl font-bold">Bookmark Manager</h1>
-        <div className="flex items-center space-x-4">
-          <div className="relative">
-            <SearchNormal1 className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-            <input
-              type="text"
-              placeholder="Search bookmarks..."
-              className="pl-10 pr-4 py-2 rounded-full bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </div>
-          <button
-            onClick={() => setViewMode(viewMode === "grid" ? "list" : "grid")}
-            className="p-2 rounded-full hover:bg-gray-700"
-          >
-            {viewMode === "grid" ? <RowVertical /> : <GridView />}
-          </button>
-          <div className="flex items-center space-x-2">
-            <Setting4 />
-            <div style={{ width: '150px' }}>
-            <CustomSlider
-              min={100}
-              max={300}
-              value={cardSize}
-              onChange={setCardSize}
-              step={10}
-            />
-          </div>
-          </div>
-        </div>
-      </header>
+    <div
+      className="flex flex-col h-screen text-white"
+      style={{ backgroundColor: Theme.colors.background }}
+    >
       <div className="flex flex-1 overflow-hidden">
         <Sidebar
           handleAddFolder={handleAddFolder}
           selectedFolderId={selectedFolderId}
           setSelectedFolderId={setSelectedFolderId}
           renderFolders={renderFolders}
+          handleAddBookmark={handleAddBookmark}
         />
         <MainContent
-          filteredBookmarks={searchedBookmarks}
+          filteredBookmarks={filteredBookmarks}
           handleAddBookmark={handleAddBookmark}
-          viewMode={viewMode}
-          cardSize={cardSize}
         />
       </div>
 
@@ -257,6 +236,7 @@ const BookmarkApp = () => {
             handleFolderInputChange={handleFolderInputChange}
             handleFolderSubmit={handleFolderSubmit}
             renderFolderOptions={renderFolderOptions}
+            parentIdForNewSubfolder={parentIdForNewSubfolder}
           />
         </Modal>
       )}

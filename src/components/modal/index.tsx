@@ -1,5 +1,5 @@
 import { CloseCircle } from "iconsax-react";
-import {Theme} from "@/store/data/mockTheme";
+import { Theme } from "@/store/data/mockTheme";
 import { useEffect } from "react";
 
 const Modal = ({
@@ -14,11 +14,12 @@ const Modal = ({
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 ">
       <div
-        className={`fixed inset-0 backdrop-blur-sm`} onClick={onClose}
+        className={`fixed inset-0 backdrop-blur-sm`}
+        onClick={onClose}
         style={{ backgroundColor: Theme.colors.background_modal_bg }}
       />
       <div
-        className={`w-[40%] p-8 rounded-lg z-10 shadow-lg max-w-lg mx-auto relative`}
+        className={`w-[40%] p-8 rounded-xl z-10 shadow-lg max-w-lg mx-auto relative backdrop-blur-lg border border-[#ffffff50]`}
         style={{ backgroundColor: Theme.colors.modal_bg }}
       >
         <h2 className="text-xl font-bold mb-4">{title}</h2>

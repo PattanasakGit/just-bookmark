@@ -50,6 +50,17 @@ const BookmarkForm = ({
             {renderFolderOptions()}
           </select>
         </div>
+        <div className="mb-4">
+          <label className="block mb-1">Tags</label>
+          <input
+            type="tags"
+            name="tags"
+            value={newBookmark.tags || ""}
+            onChange={handleBookmarkInputChange}
+            required
+            className="w-full p-2 bg-gray-700 rounded"
+          />
+        </div>
         <button
           type="submit"
           className="bg-blue-500 hover:bg-blue-600 p-2 rounded transition duration-300"
